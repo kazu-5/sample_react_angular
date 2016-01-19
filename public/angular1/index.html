@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Hello Angular1</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.8/angular.js"></script>
+<script src="/common/common.js"></script>
+<script type="text/javascript" src="./app.js"></script>
+</head>
+<body ng-app="MyApp">
+    <div ng-controller="AppController">
+        <div>
+            <a href="javascript:void(0);" ng-click="search()">検索する</a>
+        </div>
+        <ul>
+            <li ng-repeat="shop in searchShops">
+                <div ng-click="openWithBrowser(shop.url_mobile)">
+                    <p>
+                        {{shop.name}}
+                    </p>
+                    <p ng-show="shop.hasShopImage == true">
+                        <img ng-src="{{shop.image_url.shop_image1}}">
+                    </p>
+                    <p>住所: {{shop.address}}</p>
+                    <p ng-show="shop.isLiked == false">
+                        <a href="javascript:void(0);" ng-click="addLike($event, shop.id)">お気に入りに追加</a>
+                    </p>
+                    <p ng-show="shop.isLiked == true">
+                        お気に入りに追加済み
+                    </p>
+                    <br>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
