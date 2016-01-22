@@ -15,6 +15,7 @@ app.controller('AppController', function($scope, $http) {
                 $http.jsonp(apiUrl, {params: {keyid: keyid, format: format, latitude:latitude, longitude:longitude, range:range,callback:'JSON_CALLBACK' }})
                     .success(function(data, status, headers, config) {
                         $scope.searchShops = $scope.createShops(data);
+                        $scope.like = [];
                     })
                     .error(function(data, status, headers, config) {
                         console.log(data);

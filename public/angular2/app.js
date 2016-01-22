@@ -31,6 +31,7 @@ var Index = ng
 .Class({
     constructor: function () {
         this.shops = [];
+        this.likes = [];
     },
     onClick: function(id){
         this.addLike(id);
@@ -55,14 +56,19 @@ var Index = ng
     //お気に入りに追加
     addLike: function(id){
         var shops = this.shops;
-        likes.unshift(id);
         
+        var likes = JSON.parse(window.localStorage.getItem('like'));
+        if(likes !=null && likes.length != 0){
+            likes.unshift(id);
+        }else{
+            likes = [id];
+        }
+        window.localStorage.setItem('like', JSON.stringify(likes));
         for(var i=0; i<shops.length; i++){
             if(shops[i].id == id){
                 shops[i].isLiked = true;
             }
         }
-        window.localStorage.setItem('like', JSON.stringify(likes));
     }
 });
 
