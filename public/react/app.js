@@ -132,12 +132,21 @@ var Index = React.createClass({
             }.bind(this)
         );
     },
+    //お気に入りをクリア
+    clearLike: function() {
+        var like = [];
+        window.localStorage.setItem('like', JSON.stringify(like));
+        this.onSearch();
+    },
     render: function(){
         return (
             <div className="index">
-                <div>
+                <p>
                     <a href="javascript:void(0);" onClick={this.onSearch}>検索する</a>
-                </div>
+                </p>
+                <p>
+                    <a href="javascript:void(0);" onClick={this.clearLike}>お気に入りをクリア</a>
+                </p>
                 <SearchResultList data={this.state.shops} onLike={this.onLike} />
             </div>
         );
