@@ -2,11 +2,7 @@ var apiUrl = $common.config.apiUrl;
 var keyid = $common.config.keyid;
 var format = $common.config.format;
 
-var LikeLink = React.createClass({
-    onClick: function(){
-        var onLike = this.props.onLike;
-        onLike();
-    },
+var LikeButton = React.createClass({
   render: function() {
       var isLiked = this.props.isLiked;
       
@@ -16,7 +12,7 @@ var LikeLink = React.createClass({
             );
       }else{
           return(
-                <p><a href="javascript:void(0);" onClick={this.onClick}>お気に入りに追加する</a></p>
+                <p><a href="javascript:void(0);" onClick={this.props.onLike}>お気に入りに追加する</a></p>
             );
       }
      
@@ -26,8 +22,7 @@ var LikeLink = React.createClass({
 var SearchResult = React.createClass({
     onLike: function(){
         var id = this.props.data.id;
-        var onLike = this.props.onLike;
-        onLike(id);
+        this.props.onLike(id);
     },
     render: function() {
         var shop = this.props.data;
@@ -51,7 +46,7 @@ var SearchResult = React.createClass({
                         </p>
                         {imageArea}
                         <p>住所: {shop.address}</p>
-                        <LikeLink isLiked={shop.isLiked} id ={shop.id} onLike={this.onLike}/>
+                        <LikeButton isLiked={shop.isLiked} id ={shop.id} onLike={this.onLike}/>
                         <br/>
                     </div>
                 </li>
@@ -60,10 +55,6 @@ var SearchResult = React.createClass({
 });
 
 var SearchResultList = React.createClass({
-    onLike: function(id){
-        var onLike = this.props.onLike;
-        onLike(id);
-    },
     render: function() {
         // 行数分のリストを格納したノードを生成
         // 親ノードから受け取ったdataはpropsで受け取れます
@@ -74,7 +65,7 @@ var SearchResultList = React.createClass({
         }else{
             var result = function(row,i){
                   return (
-                    <SearchResult key={i} data={row} onLike={this.onLike}/>
+                    <SearchResult key={i} data={row} onLike={this.props.onLike}/>
                   );
                 };
             return (
@@ -94,7 +85,6 @@ var Index = React.createClass({
         var likes = JSON.parse(window.localStorage.getItem('like'));
         if(likes !=null && likes.length != 0){
             likes.unshift(id);
-            console.log(likes);
         }else{
             likes = [id];
         }
